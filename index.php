@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,53 +8,91 @@
     <link rel="stylesheet" href="./css/output.css">
 </head>
 
-<body>
-<header>
+<body class="font-inter">
 
-</header>
+    <header>
+        <nav class="bg-primary-yellow flex justify-between items-center p-4 w-auto">
 
-<main>
+            <div class="flex w-3/12 justify-start">
+                <a href="" alt="">
+                    <img src="./asset/logobookmarket.png" alt="" class="w-12">
+                </a>
+            </div>
 
-    <section>
-        <article>
+            <form action="" method="get" class="flex w-6/12 justify-center">
+                <div>
+                    <input id="example" type="search" name="search" class="rounded-md w-96" />
+                </div>
+            </form>
 
-        </article>
-    </section>
+            <div class="flex w-3/12 gap-1 right-0 justify-end">
+                <a href="" alt="">
+                    <img src="./asset/iconuser.png" alt="" class="w-12">
+                </a>
+                <a href="" alt="">
+                    <img src="./asset/iconcontact.png" alt="" class="w-12">
+                </a>
+                <a href="" alt="">
+                    <img src="./asset/iconshop" alt="" class="w-12">
+                </a>
+            </div>
+     </nav>
+            <nav class="p-2 flex justify-around bg-secondary-gray">
+                
+                <a href="" alt="" class="text-off-white hover:text-primary-purple">Tous les produits</a>
+                <a href="" alt="" class="text-off-white hover:text-primary-purple">Idées lecture</a>
+                <a href="" alt="" class="text-off-white hover:text-primary-purple">Notre selection</a>
+                <a href="" alt="" class="text-off-white hover:text-primary-purple">Promos</a>
+                <a href="" alt="" class="text-off-white hover:text-primary-purple">Meilleures ventes</a>
+                <a href="" alt="" class="text-off-white hover:text-primary-purple">Coup de coeur</a>
+                <a href="" alt="" class="text-off-white hover:text-primary-purple">Aide</a>
 
-    <section>
-        <article>
+        </nav>
+    </header>
 
-        </article>
-    </section>
+    <main>
 
-    <section>
-        <article>
+        <section>
+            <article>
+<--caroussel
+            </article>
+        </section>
 
-        </article>
-    </section>
+        <section>
+            <article>
 
-    <section>
-        <article>
+            </article>
+        </section>
 
-        </article>
-    </section>
+        <section>
+            <article>
 
-    <section>
-        <article>
+            </article>
+        </section>
 
-        </article>
-    </section>
+        <section>
+            <article>
 
-    <section>
-        <article>
+            </article>
+        </section>
 
-        </article>
-    </section>
+        <section>
+            <article>
 
-    <footer>
-        
-    </footer>
+            </article>
+        </section>
 
-</main>
+        <section>
+            <article>
+
+            </article>
+        </section>
+
+        <footer>
+
+        </footer>
+
+    </main>
 </body>
+
 </html>
