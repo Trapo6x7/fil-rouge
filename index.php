@@ -1,3 +1,8 @@
+<?php
+require_once "./utils/connectdb.php";
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -8,10 +13,10 @@
     <link rel="stylesheet" href="./css/output.css">
 </head>
 
-<body class="bg-off-white font-inter w-screen">
+<body class="bg-off-white font-inter">
 
     <header>
-        <nav class="bg-primary-yellow flex justify-between items-center p-4 w-auto">
+        <nav class="bg-primary-yellow flex justify-between items-center p-4 w-full">
 
             <div class="flex w-3/12 justify-start">
                 <a href="" alt="">
