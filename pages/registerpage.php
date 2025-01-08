@@ -1,7 +1,17 @@
 <?php
 
 require_once "../utils/connectdb.php";
-include_once '../utils/check-if-connected.php';
+include_once '../../utils/check-if-connected.php';
+$sql = "SELECT * FROM `role`";
+
+try {
+    $stmt = $pdo->query($sql);
+    $roles = $stmt->fetchAll(PDO::FETCH_ASSOC); // ou fetch si vous savez que vous n'allez avoir qu'un seul résultat
+
+} catch (PDOException $error) {
+    echo "Erreur lors de la requete : " . $error->getMessage();
+}
+
 
 ?>
 
@@ -61,30 +71,53 @@ include_once '../utils/check-if-connected.php';
         <section class="text-secondary-gray">
             <main class="flex flex-col p-10 justify-between items-center">
 
-                <h1 class="font-bold text-lg">Connectez vous sur BookMarket</h1>
+                <h1 class="font-bold text-lg">Creez votre compte sur BookMarket</h1>
+
                 <?php if (isset($_GET['error']) && $_GET['error'] === '1') {
                 ?>
-                    <p class="">L'email ou le mot de passe est incorrect</p>
+                    <p class="font-jaro pb-4">Il faut remplir tous les champs</p>
                 <?php
                 }
                 ?>
 
                 <?php if (isset($_GET['error']) && $_GET['error'] === '2') {
                 ?>
-                    <p class="">Ce compte n'existe pas</p>
+                    <p class="font-jaro pb-4">L'utilisateur existe déjà ou l'email est déjà utilisé</p>
                 <?php
                 }
                 ?>
-                <form class="flex flex-col justify-center w-full items-center gap-8 p-10"  action="../process/process_login.php" method="post">
+                <form class="flex flex-col justify-center w-full items-center gap-8 p-10" action="../process/processregister.php" method="post">
+
                     <div class="flex flex-col justify-center items-center gap-3 p-10">
-                        <input class="rounded-md text-center" type="email" id="email" name="email" placeholder="Email" required>
-                        <input class="rounded-md text-center" type="password" id="password" name="password" placeholder="Mot de passe" required>
+
+                        <label for="firstname" class="text-xs font-bold">Prénom</label>
+                        <input type="text" id="firstname" name="firstname" required class="rounded-md text-center">
+                        <label for="lastname" class="text-xs font-bold">Nom de famille</label>
+                        <input type="text" id="lastname" name="lastname" required class="rounded-md text-center">
+                        <label for="pseudo" class="text-xs font-bold">Username</label>
+                        <input type="text" id="pseudo" name="pseudo" required class="rounded-md text-center">
+                        <label for="mail" class="text-xs font-bold">E-Mail</label>
+                        <input type="email" id="mail" name="mail" required class="rounded-md text-center">
+                        <label for="password" class="text-xs font-bold">Mot de passe</label>
+                        <input type="password" id="password" name="password" required class="rounded-md text-center">
+
+                        <select id="role" name="role" class="text-sm">
+                            <?php
+                            foreach ($roles as $role) {
+                            ?>
+                                <option value="<?= htmlspecialchars($role['role']); ?>"><?= htmlspecialchars($role['role']); ?></option>
+                            <?php
+                            }
+                            ?>
+                        </select>
+
                     </div>
 
-                    <input type="submit" class="bg-primary-purple px-4 py-2 rounded-md text-off-white text-sm" value="Se connecter">
+                    <input type="submit" class="bg-primary-purple px-4 py-2 rounded-md text-off-white text-sm">
+
                 </form>
 
-                <p class="">Pas encore de compte ?<a class="" href="../formulaire/inscription.php"> Inscrivez vous</a></p>
+                <p class="text-xs">Dejà un compte? <a href="./login.php" class="font-bold">Connectez vous</a></p>
 
             </main>
         </section>

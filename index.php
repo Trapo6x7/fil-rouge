@@ -9,7 +9,7 @@ require_once "./utils/connectdb.php";
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>BookMarket</title>
     <link rel="stylesheet" href="./css/output.css">
 </head>
 
@@ -31,7 +31,7 @@ require_once "./utils/connectdb.php";
             </form>
 
             <div class="flex w-3/12 gap-1 right-0 justify-end">
-                <a href="" alt="">
+                <a href="./pages/loginpage.php" alt="">
                     <img src="./asset/iconuser.png" alt="user" class="w-12">
                 </a>
                 <a href="" alt="">
@@ -173,7 +173,7 @@ require_once "./utils/connectdb.php";
                     rapporteront vos livres. Il vous suffit ensuite de nous les envoyer et nous nous occupons de tout de A à Z. Vous n'avez plus qu'à attendre vos gains !</p>
             </article>
         </section>
-
+    </main>
         <footer class="bg-secondary-gray p-10 text-off-white flex justify-between">
 
             <div class="flex flex-col gap-24">
@@ -227,7 +227,7 @@ require_once "./utils/connectdb.php";
 
         </footer>
 
-    </main>
+
 </body>
 
 </html>

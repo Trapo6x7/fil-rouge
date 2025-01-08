@@ -1,7 +1,10 @@
 <?php
 
 require_once "../utils/connectdb.php";
-include_once '../utils/check-if-connected.php';
+
+include_once "../utils/check-if-not-connected.php";
+var_dump($_SESSION);
+die();
 
 ?>
 
@@ -59,32 +62,38 @@ include_once '../utils/check-if-connected.php';
 
     <main>
         <section class="text-secondary-gray">
-            <main class="flex flex-col p-10 justify-between items-center">
+            <main class="flex p-10 justify-between items-center">
 
-                <h1 class="font-bold text-lg">Connectez vous sur BookMarket</h1>
-                <?php if (isset($_GET['error']) && $_GET['error'] === '1') {
-                ?>
-                    <p class="">L'email ou le mot de passe est incorrect</p>
-                <?php
-                }
-                ?>
+                <section class="flex flex-col gap-8 w-1/5">
 
-                <?php if (isset($_GET['error']) && $_GET['error'] === '2') {
-                ?>
-                    <p class="">Ce compte n'existe pas</p>
-                <?php
-                }
-                ?>
-                <form class="flex flex-col justify-center w-full items-center gap-8 p-10"  action="../process/process_login.php" method="post">
-                    <div class="flex flex-col justify-center items-center gap-3 p-10">
-                        <input class="rounded-md text-center" type="email" id="email" name="email" placeholder="Email" required>
-                        <input class="rounded-md text-center" type="password" id="password" name="password" placeholder="Mot de passe" required>
+                    <div class="flex flex-col gap-1 items-center justify-start">
+                        <img src="../asset/photos/chill_guy1731936768520.png" alt="" class="w-1/4">
+                        <h2 class="font-bold text-md">User Name</h2>
+                        <p class="font-normal text-sm">Email</p>
                     </div>
 
-                    <input type="submit" class="bg-primary-purple px-4 py-2 rounded-md text-off-white text-sm" value="Se connecter">
-                </form>
+                    <div class="flex flex-col gap-1 items-center justify-start">
+                        <a href="">
+                            <p class="font-normal text-sm">Tableau de bord</p>
+                        </a>
+                        <a href="">
+                            <p class="font-normal text-sm">Mes articles</p>
+                        </a>
+                        <a href="">
+                            <p class="font-normal text-sm">Toutes les commandes</p>
+                        </a>
+                    </div>
 
-                <p class="">Pas encore de compte ?<a class="" href="../formulaire/inscription.php"> Inscrivez vous</a></p>
+                    <div class="flex flex-col gap-1 items-center justify-start">
+                        <a href="">
+                            <p class="font-bold text-sm">Modifier le profil</p>
+                        </a>
+                        <a href="" class="text-red-600">
+                            <p class="font-bold text-sm ">Deconnexion</p>
+                        </a>
+                    </div>
+
+                    </section>
 
             </main>
         </section>
