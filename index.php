@@ -1,5 +1,6 @@
 <?php
 require_once "./utils/connectdb.php";
+session_start();
 
 ?>
 
@@ -34,7 +35,7 @@ require_once "./utils/connectdb.php";
                 <a href="./pages/loginpage.php" alt="">
                     <img src="./asset/iconuser.png" alt="user" class="w-12">
                 </a>
-                <a href="" alt="">
+                <a href="./pages/loginpage.php" alt="">
                     <img src="./asset/iconcontact.png" alt="contact" class="w-12">
                 </a>
                 <a href="" alt="">

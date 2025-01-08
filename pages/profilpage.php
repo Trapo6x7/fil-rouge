@@ -3,8 +3,6 @@
 require_once "../utils/connectdb.php";
 
 include_once "../utils/check-if-not-connected.php";
-var_dump($_SESSION);
-die();
 
 ?>
 
@@ -68,8 +66,8 @@ die();
 
                     <div class="flex flex-col gap-1 items-center justify-start">
                         <img src="../asset/photos/chill_guy1731936768520.png" alt="" class="w-1/4">
-                        <h2 class="font-bold text-md">User Name</h2>
-                        <p class="font-normal text-sm">Email</p>
+                        <h2 class="font-bold text-md"><?= $_SESSION['user']['pseudo'] ?></h2>
+                        <p class="font-normal text-sm"><?= $_SESSION['user']['mail'] ?></p>
                     </div>
 
                     <div class="flex flex-col gap-1 items-center justify-start">
@@ -89,7 +87,10 @@ die();
                             <p class="font-bold text-sm">Modifier le profil</p>
                         </a>
                         <a href="" class="text-red-600">
-                            <p class="font-bold text-sm ">Deconnexion</p>
+                           
+                            <form action="../process/process_logout.php" method="POST">
+                    <button type="submit"><p class="font-bold text-sm ">Deconnexion</p></button>
+                </form>
                         </a>
                     </div>
 

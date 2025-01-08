@@ -8,6 +8,6 @@ if (
 ) {
 
     // Redirection vers l'URL
-    header('Location: ' . $url);
+    header("Location: http://localhost/php/filrouge/pages/loginpage.php");
     exit;
 }
