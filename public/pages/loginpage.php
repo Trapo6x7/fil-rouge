@@ -1,8 +1,8 @@
 <?php
 
-require_once "../utils/connectdb.php";
-
-include_once "../utils/check-if-not-connected.php";
+include_once "../../utils/autoloader.php";
+require_once "../../utils/connectdb.php";
+include_once '../../utils/check-if-connected.php';
 
 ?>
 
@@ -16,9 +16,9 @@ include_once "../utils/check-if-not-connected.php";
     <link rel="stylesheet" href="../css/output.css">
 </head>
 
-<body class="bg-off-white font-inter">
+<body class="bg-off-white font-inter min-h-screen flex flex-col">
 
-    <header>
+    <header class="flex flex-col justify-center">
         <nav class="bg-primary-yellow flex justify-between items-center p-4 w-full">
 
             <div class="flex w-3/12 justify-start">
@@ -58,79 +58,36 @@ include_once "../utils/check-if-not-connected.php";
         </nav>
     </header>
 
-    <main>
-        <main class="text-secondary-gray">
-            
-            <section class="flex p-10 justify-between items-center divide-x">
+    <main class="grow">
+        <section class="text-secondary-gray">
+            <section class="flex flex-col p-10 justify-between items-center">
 
+                <h1 class="font-bold text-lg">Connectez vous sur BookMarket</h1>
+                <?php if (isset($_GET['error']) && $_GET['error'] === '1') {
+                ?>
+                    <p class="">L'email ou le mot de passe est incorrect</p>
+                <?php
+                }
+                ?>
 
-                <section class="flex flex-col gap-8 w-1/6">
-
-                    <div class="flex flex-col gap-1 items-center justify-start">
-                        <img src="../asset/photos/chill_guy1731936768520.png" alt="" class="w-1/3">
-                        <h2 class="font-bold text-md"><?= strtoupper($_SESSION['user']['pseudo']) ?></h2>
-                        <p class="font-normal text-sm"><?= $_SESSION['user']['mail'] ?></p>
+                <?php if (isset($_GET['error']) && $_GET['error'] === '2') {
+                ?>
+                    <p class="">Ce compte n'existe pas</p>
+                <?php
+                }
+                ?>
+                <form class="flex flex-col justify-center w-full items-center gap-8 p-10" action="../process/process_login.php" method="post">
+                    <div class="flex flex-col justify-center items-center gap-3 p-10">
+                        <input class="rounded-md text-center" type="email" id="email" name="email" placeholder="Email" required>
+                        <input class="rounded-md text-center" type="password" id="password" name="password" placeholder="Mot de passe" required>
+                        <input type="submit" class="bg-primary-purple px-4 py-2 rounded-md text-off-white text-sm" value="Se connecter">
                     </div>
+                </form>
 
-                    <div class="flex flex-col gap-1 items-center justify-start">
-                        <a href="">
-                            <p class="font-normal text-sm">Tableau de bord</p>
-                        </a>
-                        <a href="">
-                            <p class="font-normal text-sm">Mes articles</p>
-                        </a>
-                        <a href="">
-                            <p class="font-normal text-sm">Toutes les commandes</p>
-                        </a>
-                    </div>
-
-                    <div class="flex flex-col gap-1 items-center justify-start">
-                        <a href="">
-                            <p class="font-bold text-sm">Modifier le profil</p>
-                        </a>
-                        <a href="" class="text-red-600">
-
-                            <form action="../process/process_logout.php" method="POST">
-                                <button type="submit">
-                                    <p class="font-bold text-sm ">Deconnexion</p>
-                                </button>
-                            </form>
-                        </a>
-                    </div>
-
-                </section>
-
-                <section class="flex flex-col gap-8 w-5/6 p-5">
-
-             
-            <div class="flex justify-center">
-                <h1 class="text-lg">Bonjour <span class="font-bold"><?=strtoupper($_SESSION['user']['pseudo'])?></span>, prêt a lire aujourd'hui?</h1>
-            </div>
-            
-
-                    <article class="bg-off-white rounded-md flex flex-col p-5 w-1/4 gap-3">
-                        <div class="flex justify-end">
-                            <img src="../asset/coeuricon.png" alt="" id="like" class="w-4">
-                        </div>
-
-                        <div class="flex justify-center">
-                            <img src="../asset/cover/onepiece.jpg" alt="" id="cover" class="h-72 rounded-md">
-                        </div>
-
-                        <div class="flex flex-col">
-                            <h3 id="auteur" class="text-sm font-extralight">Auteur</h3>
-                            <h2 id="titre" class="text-lg font-extrabold text-secondary-gray">Titre</h2>
-                            <p id="price" class="text-md font-bold text-primary-purple">Prix</p>
-                        </div>
-
-                        <div class="flex justify-center text-sm">
-                            <a href="" alt="" class="text-off-white bg-secondary-gray p-2 rounded-md">Ajouter au panier</a>
-                        </div>
-                    </article>
-                </section>
+                <p class="text-sm">Pas encore de compte ?<a class="font-bold" href="./registerpage.php"> Inscrivez vous</a></p>
 
             </section>
-        </main>
+        </section>
     </main>
 
     <footer class="bg-secondary-gray p-10 text-off-white flex justify-between">

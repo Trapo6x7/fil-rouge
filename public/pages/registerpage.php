@@ -1,7 +1,8 @@
 <?php
 
-require_once "../utils/connectdb.php";
-include_once '../utils/check-if-connected.php';
+include_once "../../utils/autoloader.php";
+require_once "../../utils/connectdb.php";
+include_once '../../utils/check-if-connected.php';
 $sql = "SELECT * FROM `role`";
 
 try {

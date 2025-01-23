@@ -1,6 +1,7 @@
 <?php
 
-require_once "../utils/connectdb.php";
+include_once "../../utils/autoloader.php";
+require_once "../../utils/connectdb.php";
 
 
 ?>
