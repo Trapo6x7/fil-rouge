@@ -15,7 +15,7 @@
         <nav class="bg-primary-yellow flex justify-between items-center p-4 w-full">
 
             <div class="flex w-3/12 justify-start">
-                <a href="" alt="">
+                <a href="../public/home.php" alt="">
                     <img src="./asset/logobookmarket.png" alt="logobookmarket" class="w-12">
                 </a>
             </div>
@@ -27,7 +27,7 @@
             </form>
 
             <div class="flex w-3/12 gap-1 right-0 justify-end">
-                <a href="./pages/profilpage.php" alt="">
+                <a href="../public/profilpage.php" alt="">
                     <img src="./asset/iconuser.png" alt="user" class="w-12">
                 </a>
                 <a href="" alt="">

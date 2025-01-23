@@ -22,4 +22,5 @@ final class Role
     {
         return $this->role;
     }
+
 }

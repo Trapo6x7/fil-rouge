@@ -1,6 +1,6 @@
 <?php
 
-class RoleRepository extends AbstractRepository
+final class RoleRepository extends AbstractRepository
 {
     public function __construct()
     {
@@ -47,5 +47,29 @@ class RoleRepository extends AbstractRepository
         } else {
             return null;
         }
+    }
+
+    public function findAllExceptAdmin()
+    {
+        $query = $this->pdo->prepare('SELECT * FROM role WHERE role != :admin');
+        $query->execute(['admin' => 'admin']);
+        $rolesData = $query->fetchAll();
+
+        $roles = [];
+        foreach ($rolesData as $roleData) {
+            $roles[] = new Role($roleData['id'], $roleData['role']);
+        }
+
+        return $roles;
+    }
+
+    public function findByRoleName(string $roleName): ?Role
+    {
+        $sql = "SELECT * FROM role WHERE role = :role";
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->execute([':role' => $roleName]);
+
+        $roleData = $stmt->fetch(PDO::FETCH_ASSOC);
+        return $roleData ? RoleMapper::mapToObject($roleData) : null;
     }
 }

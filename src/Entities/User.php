@@ -13,11 +13,12 @@ final class User
     private ?string $companyAdress;
     private ?string $companyName;
 
-    public function __construct(int $id, string $firstname, string $lastname, string $mail, string $password, int $idRole, ?string $companyAdress, ?string $companyName)
+    public function __construct(int $id, string $firstname, string $pseudo, string $lastname, string $mail, string $password, int $idRole, ?string $companyAdress, ?string $companyName)
     {
         $this->id = $id;
         $this->firstname = $firstname;
         $this->lastname = $lastname;
+        $this->pseudo = $pseudo;
         $this->mail = $mail;
         $this->password = $password;
         $this->idRole = $idRole;
@@ -30,7 +31,7 @@ final class User
         return $this->id;
     }
 
-    public function getFirstname(): int
+    public function getFirstname(): string
     {
         return $this->firstname;
     }
@@ -42,7 +43,7 @@ final class User
         return $this;
     }
 
-    public function getLastname(): int
+    public function getLastname(): string
     {
         return $this->lastname;
     }

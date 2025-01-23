@@ -15,7 +15,7 @@ class UserMapper implements MapperContract
             $data['pseudo'],
             $data['mail'],
             $data['password'],
-            $data['idRole'],
+            (int)$data['id_role'],
             $data['companyAdress'] ?? null,
             $data['companyName'] ?? null
         );

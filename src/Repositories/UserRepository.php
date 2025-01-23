@@ -1,6 +1,6 @@
 <?php
 
-class UserRepository extends AbstractRepository
+final class UserRepository extends AbstractRepository
 {
     public function __construct()
     {
@@ -55,4 +55,28 @@ class UserRepository extends AbstractRepository
             return null;
         }
     }
+
+    public function findByMail(string $mail): ?User
+{
+    $sql = "SELECT * FROM `user` WHERE mail = :mail";
+
+    try {
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->execute([
+            ":mail" => $mail
+        ]);
+
+        $userData = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        if ($userData) {
+            return UserMapper::mapToObject($userData);
+        }
+
+        return null; // Aucun utilisateur trouvé
+    } catch (PDOException $error) {
+        echo "Erreur lors de la requête : " . $error->getMessage();
+        return null;
+    }
+}
+
 }

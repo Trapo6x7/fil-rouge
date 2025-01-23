@@ -4,7 +4,7 @@ require_once "../utils/connectdb.php";
 session_start();
 
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
-    header('Location: ../pages/loginpage.php');
+    header('Location: ../public/loginpage.php');
     exit();
 }
 
@@ -15,7 +15,7 @@ if (
     empty(trim($_POST['email'])) ||
     empty($_POST['password'])
 ) {
-    header('Location: ../pages/loginpage.php');
+    header('Location: ../public/loginpage.php');
     exit();
 }
 
@@ -34,27 +34,26 @@ try {
    
     // Vérifie si l'utilisateur existe
     if (!$user) {
-        header("Location: ../pages/loginpage.php?error=2"); // Compte n'existe pas
+        header("Location: ../public/loginpage.php?error=2"); // Compte n'existe pas
         exit();
     }
 
-    
     // Vérifie le mot de passe
     if (password_verify($password, $user["password"])) {
       
         $_SESSION["user"] = $user; 
     
-        header("Location: ../pages/profilpage.php");
+        header("Location: ../public/profilpage.php?id=" . $_SESSION['user']['id']);
         exit();
     } else {
       
-        header("Location: ../pages/loginpage.php?error=1"); // Mot de passe incorrect
+        header("Location: ../public/loginpage.php?error=1"); // Mot de passe incorrect
         exit();
     }
 
 } catch (\PDOException $error) {
     // Gestion des erreurs PDO
     error_log("Erreur de connexion à la base de données : " . $error->getMessage());
-    header("Location: ../pages/loginpage.php?error=3"); // Erreur interne
+    header("Location: ../public/loginpage.php?error=3"); // Erreur interne
     exit();
 }
