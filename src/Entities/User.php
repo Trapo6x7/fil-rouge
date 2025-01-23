@@ -1,6 +1,6 @@
 <?php
 
-final class User 
+final class User
 {
 
     private int $id;
@@ -25,91 +25,101 @@ final class User
         $this->companyName = $companyName;
     }
 
-    public function getId() : int
+    public function getId(): int
     {
         return $this->id;
     }
 
-    public function setFirstname($firstname) : self
+    public function getFirstname(): int
+    {
+        return $this->firstname;
+    }
+
+    public function setFirstname($firstname): self
     {
         $this->firstname = $firstname;
 
         return $this;
     }
 
-    public function setLastname($lastname) :self
+    public function getLastname(): int
+    {
+        return $this->lastname;
+    }
+
+    public function setLastname($lastname): self
     {
         $this->lastname = $lastname;
 
         return $this;
     }
 
-    public function getPseudo() : string
+    public function getPseudo(): string
     {
         return $this->pseudo;
     }
 
-    public function setPseudo($pseudo) : self
+    public function setPseudo($pseudo): self
     {
         $this->pseudo = $pseudo;
 
         return $this;
     }
 
-    public function getMail() : string
+    public function getMail(): string
     {
         return $this->mail;
     }
- 
-    public function setMail($mail) : self
+
+    public function setMail($mail): self
     {
         $this->mail = $mail;
 
         return $this;
     }
 
-    public function getPassword() : string
+    public function getPassword(): string
     {
         return $this->password;
     }
 
-    public function setPassword($password) : self
+    public function setPassword($password): self
     {
         $this->password = $password;
 
         return $this;
     }
 
-    public function getIdRole() : int
+    public function getIdRole(): int
     {
         return $this->idRole;
     }
 
-    public function setIdRole($idRole) : self
+    public function setIdRole($idRole): self
     {
         $this->idRole = $idRole;
 
         return $this;
     }
 
-    public function getCompanyAdress() : string
+    public function getCompanyAdress(): string
     {
         return $this->companyAdress;
     }
 
-    public function setCompanyAdress($companyAdress) : self
+    public function setCompanyAdress($companyAdress): self
     {
         $this->companyAdress = $companyAdress;
 
         return $this;
     }
 
-    public function getCompanyName() : string
+    public function getCompanyName(): string
     {
         return $this->companyName;
     }
 
-    public function setCompanyName($companyName) : self
+    public function setCompanyName($companyName): self
     {
         $this->companyName = $companyName;
 

@@ -5,18 +5,6 @@ require_once "../../utils/connectdb.php";
 include_once '../../utils/check-if-connected.php';
 require_once './partials/header.php';
 
-
-$sql = "SELECT * FROM `role`";
-
-try {
-    $stmt = $pdo->query($sql);
-    $roles = $stmt->fetchAll(PDO::FETCH_ASSOC); // ou fetch si vous savez que vous n'allez avoir qu'un seul résultat
-
-} catch (PDOException $error) {
-    echo "Erreur lors de la requete : " . $error->getMessage();
-}
-
-
 ?>
 
 
@@ -53,13 +41,14 @@ try {
                         <input type="email" id="mail" name="mail" required class="rounded-md text-center">
                         <label for="password" class="text-xs font-bold">Mot de passe :</label>
                         <input type="password" id="password" name="password" required class="rounded-md text-center">
-
                         <select id="role" name="role" class="text-sm">
                             <?php
                             foreach ($roles as $role) {
+                                if ($role !== 'Admin') { 
                             ?>
                                 <option value="<?= htmlspecialchars($role['role']); ?>"><?= htmlspecialchars($role['role']); ?></option>
                             <?php
+                             }
                             }
                             ?>
                         </select>
