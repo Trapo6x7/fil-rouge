@@ -8,7 +8,7 @@ require_once './partials/header.php';
 
     <main class="grow">
         <section class="text-secondary-gray">
-            <section class="flex flex-col p-10 justify-between items-center">
+            <section class="flex flex-col p-28 justify-between items-center">
 
                 <h1 class="font-bold text-lg">Connectez vous sur BookMarket</h1>
                 <?php if (isset($_GET['error']) && $_GET['error'] === '1') {

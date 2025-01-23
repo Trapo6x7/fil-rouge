@@ -13,6 +13,19 @@ if (!$validator->validate($_POST)) {
 
 $data = $validator->sanitize($_POST);
 
+$validator->addStrategy('firstname', new RequiredValidator());
+$validator->addStrategy('firstname', new StringValidator(30));
+$validator->addStrategy('lastname', new RequiredValidator());
+$validator->addStrategy('lastname', new StringValidator(30));
+$validator->addStrategy('pseudo', new RequiredValidator());
+$validator->addStrategy('pseudo', new StringValidator(30));
+$validator->addStrategy('mail', new RequiredValidator());
+$validator->addStrategy('mail', new StringValidator(30));
+$validator->addStrategy('password', new RequiredValidator());
+$validator->addStrategy('password', new PasswordValidator(30));
+$validator->addStrategy('id_role', new RequiredValidator());
+$validator->addStrategy('id_role', new IntegerValidator());
+
 // Instancier les repositories nécessaires
 $userRepository = new UserRepository();
 $roleRepository = new RoleRepository(); 
@@ -34,7 +47,6 @@ try {
     // Créer une instance de User
     $user = new User(0, $data['firstname'], $data['lastname'], $data['pseudo'], $data['mail'], $data['password'],$role->getId(), "", "");
 
-
     // Insérer l'utilisateur en base de données
     $insertedUser = $userRepository->insert($user);
 
@@ -50,8 +62,9 @@ try {
     $_SESSION["mail"] = $insertedUser->getMail();
     $_SESSION["role"] = $data['role'];
 
+
     // Rediriger en fonction du rôle
-    if ($data['role'] === 'seller') {
+    if ($_SESSION['role'] === 'Seller') {
         header("location: ../public/sellerregisterpage.php?id=" . $insertedUser->getId());
         return;
     }
@@ -60,3 +73,4 @@ try {
 } catch (\Exception $e) {
     echo "Erreur : " . $e->getMessage();
 }
+

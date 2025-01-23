@@ -556,6 +556,10 @@ video {
   display: none;
 }
 
+.static{
+  position: static;
+}
+
 .absolute{
   position: absolute;
 }
@@ -580,10 +584,6 @@ video {
   display: flex;
 }
 
-.table{
-  display: table;
-}
-
 .h-72{
   height: 18rem;
 }
@@ -594,10 +594,6 @@ video {
 
 .h-auto{
   height: auto;
-}
-
-.min-h-screen{
-  min-height: 100vh;
 }
 
 .w-1\/2{
@@ -650,10 +646,6 @@ video {
 
 .w-full{
   width: 100%;
-}
-
-.flex-grow{
-  flex-grow: 1;
 }
 
 .grow{
@@ -760,6 +752,18 @@ video {
 
 .p-5{
   padding: 1.25rem;
+}
+
+.p-14{
+  padding: 3.5rem;
+}
+
+.p-24{
+  padding: 6rem;
+}
+
+.p-28{
+  padding: 7rem;
 }
 
 .px-28{

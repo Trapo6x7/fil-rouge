@@ -59,7 +59,7 @@ try {
     $_SESSION['company_adress'] = $companyadress;
 
     // Redirection après mise à jour réussie
-    header("Location: ../index.php");
+    header("Location: ../public/profilpage.php?id=" . $_SESSION['user_id']);
     exit;
 } catch (\PDOException $error) {
     // Gestion des erreurs
