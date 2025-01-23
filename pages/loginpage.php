@@ -15,9 +15,9 @@ include_once '../utils/check-if-connected.php';
     <link rel="stylesheet" href="../css/output.css">
 </head>
 
-<body class="bg-off-white font-inter">
+<body class="bg-off-white font-inter min-h-screen flex flex-col">
 
-    <header>
+    <header class="flex flex-col justify-center">
         <nav class="bg-primary-yellow flex justify-between items-center p-4 w-full">
 
             <div class="flex w-3/12 justify-start">
@@ -57,9 +57,9 @@ include_once '../utils/check-if-connected.php';
         </nav>
     </header>
 
-    <main>
+    <main class="grow">
         <section class="text-secondary-gray">
-            <main class="flex flex-col p-10 justify-between items-center">
+            <section class="flex flex-col p-10 justify-between items-center">
 
                 <h1 class="font-bold text-lg">Connectez vous sur BookMarket</h1>
                 <?php if (isset($_GET['error']) && $_GET['error'] === '1') {
@@ -75,18 +75,17 @@ include_once '../utils/check-if-connected.php';
                 <?php
                 }
                 ?>
-                <form class="flex flex-col justify-center w-full items-center gap-8 p-10"  action="../process/process_login.php" method="post">
+                <form class="flex flex-col justify-center w-full items-center gap-8 p-10" action="../process/process_login.php" method="post">
                     <div class="flex flex-col justify-center items-center gap-3 p-10">
                         <input class="rounded-md text-center" type="email" id="email" name="email" placeholder="Email" required>
                         <input class="rounded-md text-center" type="password" id="password" name="password" placeholder="Mot de passe" required>
+                        <input type="submit" class="bg-primary-purple px-4 py-2 rounded-md text-off-white text-sm" value="Se connecter">
                     </div>
-
-                    <input type="submit" class="bg-primary-purple px-4 py-2 rounded-md text-off-white text-sm" value="Se connecter">
                 </form>
 
-                <p class="">Pas encore de compte ?<a class="" href="../formulaire/inscription.php"> Inscrivez vous</a></p>
+                <p class="text-sm">Pas encore de compte ?<a class="font-bold" href="./registerpage.php"> Inscrivez vous</a></p>
 
-            </main>
+            </section>
         </section>
     </main>
 

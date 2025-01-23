@@ -8,6 +8,7 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     exit();
 }
 
+
 // Vérifie que les champs requis sont envoyés
 if (
     !isset($_POST['email'], $_POST['password']) ||
@@ -30,21 +31,27 @@ try {
 
     $user = $request->fetch(PDO::FETCH_ASSOC);
 
+   
     // Vérifie si l'utilisateur existe
     if (!$user) {
         header("Location: ../pages/loginpage.php?error=2"); // Compte n'existe pas
         exit();
     }
 
+    
     // Vérifie le mot de passe
     if (password_verify($password, $user["password"])) {
-        $_SESSION["user"] = $user;
+      
+        $_SESSION["user"] = $user; 
+    
         header("Location: ../pages/profilpage.php");
         exit();
     } else {
+      
         header("Location: ../pages/loginpage.php?error=1"); // Mot de passe incorrect
         exit();
     }
+
 } catch (\PDOException $error) {
     // Gestion des erreurs PDO
     error_log("Erreur de connexion à la base de données : " . $error->getMessage());

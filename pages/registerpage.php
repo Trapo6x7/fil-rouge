@@ -1,7 +1,7 @@
 <?php
 
 require_once "../utils/connectdb.php";
-include_once '../../utils/check-if-connected.php';
+include_once '../utils/check-if-connected.php';
 $sql = "SELECT * FROM `role`";
 
 try {
@@ -25,7 +25,7 @@ try {
     <link rel="stylesheet" href="../css/output.css">
 </head>
 
-<body class="bg-off-white font-inter">
+<body class="bg-off-white font-inter min-h-screen flex flex-col">
 
     <header>
         <nav class="bg-primary-yellow flex justify-between items-center p-4 w-full">
@@ -90,15 +90,15 @@ try {
 
                     <div class="flex flex-col justify-center items-center gap-3 p-10">
 
-                        <label for="firstname" class="text-xs font-bold">Prénom</label>
+                        <label for="firstname" class="text-xs font-bold">Prénom :</label>
                         <input type="text" id="firstname" name="firstname" required class="rounded-md text-center">
-                        <label for="lastname" class="text-xs font-bold">Nom de famille</label>
+                        <label for="lastname" class="text-xs font-bold">Nom de famille :</label>
                         <input type="text" id="lastname" name="lastname" required class="rounded-md text-center">
-                        <label for="pseudo" class="text-xs font-bold">Username</label>
+                        <label for="pseudo" class="text-xs font-bold">Username :</label>
                         <input type="text" id="pseudo" name="pseudo" required class="rounded-md text-center">
-                        <label for="mail" class="text-xs font-bold">E-Mail</label>
+                        <label for="mail" class="text-xs font-bold">E-Mail :</label>
                         <input type="email" id="mail" name="mail" required class="rounded-md text-center">
-                        <label for="password" class="text-xs font-bold">Mot de passe</label>
+                        <label for="password" class="text-xs font-bold">Mot de passe :</label>
                         <input type="password" id="password" name="password" required class="rounded-md text-center">
 
                         <select id="role" name="role" class="text-sm">
@@ -110,14 +110,14 @@ try {
                             }
                             ?>
                         </select>
-
-                    </div>
-
-                    <input type="submit" class="bg-primary-purple px-4 py-2 rounded-md text-off-white text-sm">
+                        <input type="submit" class="bg-primary-purple px-4 py-2 rounded-md text-off-white text-sm">
 
                 </form>
+                </div>
 
-                <p class="text-xs">Dejà un compte? <a href="./login.php" class="font-bold">Connectez vous</a></p>
+
+
+                <p class="text-sm">Dejà un compte? <a href="./loginpage.php" class="font-bold">Connectez vous</a></p>
 
             </main>
         </section>

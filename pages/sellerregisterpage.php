@@ -15,9 +15,9 @@ require_once "../utils/connectdb.php";
     <link rel="stylesheet" href="../css/output.css">
 </head>
 
-<body class="bg-off-white font-inter">
+<body class="bg-off-white font-inter min-h-screen flex flex-col">
 
-    <header>
+    <header class="flex flex-col">
         <nav class="bg-primary-yellow flex justify-between items-center p-4 w-full">
 
             <div class="flex w-3/12 justify-start">
@@ -57,7 +57,7 @@ require_once "../utils/connectdb.php";
         </nav>
     </header>
 
-    <main>
+    <main class="grow">
         <section class="text-secondary-gray">
             <main class="flex flex-col p-10 justify-between items-center">
 
@@ -85,13 +85,13 @@ require_once "../utils/connectdb.php";
                         <label for="companyadress" class="text-xs font-bold">Adresse de votre société</label>
                         <input type="text" id="companyadress" name="companyadress" required class="rounded-md text-center">
 
-                    </div>
 
-                    <input type="submit" class="bg-primary-purple px-4 py-2 rounded-md text-off-white text-sm">
+
+                        <input type="submit" class="bg-primary-purple px-4 py-2 rounded-md text-off-white text-sm">
 
                 </form>
-
-                <p class="text-xs">Dejà un compte? <a href="./login.php" class="font-bold">Connectez vous</a></p>
+                </div>
+                <p class="text-sm">Dejà un compte? <a href="./loginpage.php" class="font-bold">Connectez vous</a></p>
 
             </main>
         </section>

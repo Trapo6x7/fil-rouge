@@ -32,10 +32,10 @@ session_start();
             </form>
 
             <div class="flex w-3/12 gap-1 right-0 justify-end">
-                <a href="./pages/loginpage.php" alt="">
+                <a href="./pages/profilpage.php" alt="">
                     <img src="./asset/iconuser.png" alt="user" class="w-12">
                 </a>
-                <a href="./pages/loginpage.php" alt="">
+                <a href="" alt="">
                     <img src="./asset/iconcontact.png" alt="contact" class="w-12">
                 </a>
                 <a href="" alt="">

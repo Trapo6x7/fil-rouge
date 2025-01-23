@@ -4,7 +4,7 @@ require_once "../utils/connectdb.php";
 
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     header('location: ../pages/sellerregisterpage.php');
-    return;
+    exit;
 }
 
 if (
@@ -15,7 +15,7 @@ if (
     )
 ) {
     header('location: ../pages/sellerregisterpage.php');
-    return;
+    exit;
 }
 
 if (
@@ -24,7 +24,7 @@ if (
     empty($_GET['id'])
 ) {
     header('location: ../pages/sellerregisterpage.php');
-    return;
+    exit;
 }
 
 if (
@@ -32,7 +32,7 @@ if (
     strlen($_POST['companyadress']) > 50
 ) {
     header('location: ../pages/sellerregisterpage.php');
-    return;
+    exit;
 }
 
 // Récupération des données du formulaire et de l'ID de l'utilisateur à mettre à jour
@@ -42,14 +42,23 @@ $userId = (int)$_GET['id'];  // Récupère l'ID de l'utilisateur passé en GET
 
 try {
     // Mise à jour des données de l'utilisateur dans la base de données
-    $request = $pdo->prepare("UPDATE user SET company_name = :company_name, company_adress = :company_adress WHERE id = :id");
+    $request = $pdo->prepare("
+        UPDATE user 
+        SET company_name = :company_name, company_adress = :company_adress 
+        WHERE id = :id
+    ");
     $request->bindParam(':company_name', $companyname);
     $request->bindParam(':company_adress', $companyadress);
     $request->bindParam(':id', $userId, PDO::PARAM_INT);  // On passe l'ID de l'utilisateur à mettre à jour
     $request->execute();
 
-    // Redirection après mise à jour réussie
+    // Démarrer une session et mettre à jour les informations de session
     session_start();
+    $_SESSION['user_id'] = $userId;
+    $_SESSION['company_name'] = $companyname;
+    $_SESSION['company_adress'] = $companyadress;
+
+    // Redirection après mise à jour réussie
     header("Location: ../index.php");
     exit;
 } catch (\PDOException $error) {
@@ -58,4 +67,3 @@ try {
     header('location: ../pages/sellerregisterpage.php?error=database');
     exit;
 }
-
