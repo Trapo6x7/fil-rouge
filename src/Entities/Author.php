@@ -1,6 +1,6 @@
 <?php
 
-final class Genre
+final class Author
 {
     private int $id;
     private string $author;
@@ -23,7 +23,7 @@ final class Genre
 
     public function setGenre($author) : self
     {
-        $this->genre = $author;
+        $this->author = $author;
 
         return $this;
     }
