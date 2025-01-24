@@ -25,9 +25,9 @@ require_once './partials/header.php';
                 <?php
                 }
                 ?>
-                <form class="flex flex-col justify-center w-full items-center gap-8 p-28" action="../process/processregisterseller.php?id=<?= $_GET['id'] ?>" method="post">
+                <form class="flex flex-col justify-center w-full items-center gap-8 p-24" action="../process/processregisterseller.php?id=<?= $_GET['id'] ?>" method="post">
 
-                    <div class="flex flex-col justify-center items-center gap-3 p-28">
+                    <div class="flex flex-col justify-center items-center gap-3 p-10">
 
                         <label for="companyname" class="text-xs font-bold">Nom de votre société</label>
                         <input type="text" id="companyname" name="companyname" required class="rounded-md text-center">

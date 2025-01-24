@@ -28,9 +28,9 @@ $roles = $roleRepostory->findAllExceptAdmin();
                 <?php
                 }
                 ?>
-                <form class="flex flex-col justify-center w-full items-center gap-8 p-28" action="../process/processregister.php" method="post">
+                <form class="flex flex-col justify-center w-full items-center gap-8 p-10" action="../process/processregister.php" method="post">
 
-                    <div class="flex flex-col justify-center items-center gap-3 p-28">
+                    <div class="flex flex-col justify-center items-center gap-3 p-10">
 
                         <label for="firstname" class="text-xs font-bold">Prénom :</label>
                         <input type="text" id="firstname" name="firstname" required class="rounded-md text-center">

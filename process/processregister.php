@@ -68,7 +68,7 @@ try {
     $_SESSION["user"] = $insertedUser;
 
     // Rediriger en fonction du rôle
-    if ($_SESSION['user'] == 2) {
+    if ($_SESSION['user']->getIdRole() == 2) {
         header("location: ../public/sellerregisterpage.php?id=" . $_SESSION['user']->getId());
         return;
     }
