@@ -107,4 +107,32 @@ public function update(User $user): User
     }
 }
 
+public function updateSeller(User $user): User
+{
+    $sql = "
+        UPDATE user 
+        SET firstname = :firstname, lastname = :lastname, pseudo = :pseudo,  mail = :mail,  password = :password,  id_role = :id_role,  company_adress = :company_adress,  company_name = :company_name WHERE id = :id
+    ";
+
+    try {
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->execute([
+            ':id' => $user->getId(),
+            ':firstname' => $user->getFirstname(),
+            ':lastname' => $user->getLastname(),
+            ':pseudo' => $user->getPseudo(),
+            ':mail' => $user->getMail(),
+            ':password' => $user->getPassword(),
+            ':id_role' => $user->getIdRole(),
+            ':company_adress' => $user->getCompanyAdress(),
+            ':company_name' => $user->getCompanyName(),
+        ]);
+
+        return $user;
+    } catch (PDOException $e) {
+        echo "Erreur lors de la mise à jour : " . $e->getMessage();
+        return false;
+    }
+}
+
 }

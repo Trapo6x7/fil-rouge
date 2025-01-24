@@ -18,7 +18,6 @@ $validator->addStrategy('email', new StringValidator(30));
 $validator->addStrategy('password', new RequiredValidator());
 $validator->addStrategy('password', new PasswordValidator(30));
 
-var_dump($data);
 $userRepo = new UserRepository;
 $user = $userRepo->findByMail($data['email']);
 

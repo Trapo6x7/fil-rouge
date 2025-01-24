@@ -2,6 +2,7 @@
 include_once "../utils/autoloader.php";
 include_once '../utils/check-if-not-connected.php';
 require_once './partials/header.php';
+session_start();
 $userRepo = new UserRepository;
 $user = $userRepo->findById($_GET['id']);
 
