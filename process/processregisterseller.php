@@ -31,12 +31,12 @@ try {
 
     // Démarrer une session et mettre à jour les informations de session
     session_start();
-    $_SESSION['user_id'] = $userId;
-    $_SESSION['company_name'] = $user->getCompanyName();
-    $_SESSION['company_adress'] = $user->getCompanyAdress();
+    $_SESSION['user'] = $updatedUser;
+    $_SESSION['company_name'] = $updatedUser->getCompanyName();
+    $_SESSION['company_adress'] = $updatedUser->getCompanyAdress();
 
     // Redirection après mise à jour réussie
-    header("Location: ../public/profilpage.php?id=" . $_SESSION['user_id']);
+    header("Location: ../public/profilpage.php?id=" . $_SESSION['user']->getId());
     exit;
 } catch (\PDOException $error) {
     // Gestion des erreurs

@@ -65,19 +65,15 @@ try {
 
     // Démarrer la session
     session_start();
-    $_SESSION["user_id"] = $insertedUser->getId();
-    $_SESSION["pseudo"] = $insertedUser->getPseudo();
-    $_SESSION["mail"] = $insertedUser->getMail();
-    $_SESSION["role"] = $data['role'];
-
+    $_SESSION["user"] = $insertedUser;
 
     // Rediriger en fonction du rôle
-    if ($_SESSION['role'] = 1) {
-        header("location: ../public/sellerregisterpage.php?id=" . $insertedUser->getId());
+    if ($_SESSION['user'] == 2) {
+        header("location: ../public/sellerregisterpage.php?id=" . $_SESSION['user']->getId());
         return;
     }
 
-    header("location: ../public/profilpage.php?id=" . $insertedUser->getId());
+    header("location: ../public/profilpage.php?id=" . $_SESSION['user']->getId());
 } catch (\Exception $e) {
     echo "Erreur : " . $e->getMessage();
 }
