@@ -40,7 +40,7 @@ final class RoleRepository extends AbstractRepository
             echo "Erreur lors de la requete : " . $error->getMessage();
         }
 
-        $role = UserMapper::mapToObject($roleData);
+        $role = RoleMapper::mapToObject($roleData);
 
         if ($role) {
             return $role;

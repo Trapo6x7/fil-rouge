@@ -1,6 +1,6 @@
 <?php
 include_once "../utils/autoloader.php";
-require_once "../utils/connectdb.php";
+
 
 $validator = new ValidatorService();
 
@@ -23,20 +23,28 @@ $validator->addStrategy('mail', new RequiredValidator());
 $validator->addStrategy('mail', new StringValidator(30));
 $validator->addStrategy('password', new RequiredValidator());
 $validator->addStrategy('password', new PasswordValidator(30));
-$validator->addStrategy('id_role', new RequiredValidator());
-$validator->addStrategy('id_role', new IntegerValidator());
+$validator->addStrategy('role', new RequiredValidator());
+$validator->addStrategy('role', new StringValidator(30));
+
+$isValid = $validator->validate($data);
+
+if ($isValid) {
+    $data['password'] = password_hash($data['password'], PASSWORD_BCRYPT);
+    $data['role'] = intval($data['role'], 10);
+}
 
 // Instancier les repositories nécessaires
-$userRepository = new UserRepository();
-$roleRepository = new RoleRepository(); 
+
+$roleRepository = new RoleRepository();
 try {
     // Récupérer l'ID du rôle
-    $role = $roleRepository->findByRoleName($data['role']);
+    $role = $roleRepository->findById($data['role']);
+
     if (!$role) {
         header('location: ../public/registerpage.php?error=invalid_role');
         return;
     }
-
+    $userRepository = new UserRepository();
     // Vérifier si l'utilisateur existe déjà
     $existingUser = $userRepository->findByMail($data['mail']);
     if ($existingUser) {
@@ -45,7 +53,7 @@ try {
     }
 
     // Créer une instance de User
-    $user = new User(0, $data['firstname'], $data['lastname'], $data['pseudo'], $data['mail'], $data['password'],$role->getId(), "", "");
+    $user = new User(0, $data['firstname'], $data['lastname'], $data['pseudo'], $data['mail'], $data['password'], $role->getId(), "", "");
 
     // Insérer l'utilisateur en base de données
     $insertedUser = $userRepository->insert($user);
@@ -73,4 +81,3 @@ try {
 } catch (\Exception $e) {
     echo "Erreur : " . $e->getMessage();
 }
-

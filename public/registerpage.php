@@ -1,7 +1,6 @@
 <?php
 
 include_once "../utils/autoloader.php";
-require_once "../utils/connectdb.php";
 include_once '../utils/check-if-connected.php';
 require_once './partials/header.php';
 $roleRepostory= new RoleRepository();
@@ -29,9 +28,9 @@ $roles = $roleRepostory->findAllExceptAdmin();
                 <?php
                 }
                 ?>
-                <form class="flex flex-col justify-center w-full items-center gap-8 p-10" action="../process/processregister.php" method="post">
+                <form class="flex flex-col justify-center w-full items-center gap-8 p-28" action="../process/processregister.php" method="post">
 
-                    <div class="flex flex-col justify-center items-center gap-3 p-10">
+                    <div class="flex flex-col justify-center items-center gap-3 p-28">
 
                         <label for="firstname" class="text-xs font-bold">Prénom :</label>
                         <input type="text" id="firstname" name="firstname" required class="rounded-md text-center">
@@ -47,7 +46,7 @@ $roles = $roleRepostory->findAllExceptAdmin();
                             <?php
                             foreach ($roles as $role) {
                             ?>
-                                <option value="<?= htmlspecialchars($role->getRole()); ?>"><?= htmlspecialchars($role->getRole()); ?></option>
+                                <option value="<?= htmlspecialchars($role->getId()); ?>"><?= htmlspecialchars($role->getRole()); ?></option>
                             <?php
                              }
                             ?>

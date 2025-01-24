@@ -1,6 +1,5 @@
 <?php
 include_once "../utils/autoloader.php";
-require_once "../utils/connectdb.php";
 include_once '../utils/check-if-not-connected.php';
 require_once './partials/header.php';
 $userRepo = new UserRepository;

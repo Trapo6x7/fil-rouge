@@ -1,6 +1,6 @@
 <?php
 
-require_once "../utils/connectdb.php";
+include_once "../utils/autoloader.php";
 
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     header('location: ../pages/sellerregisterpage.php');

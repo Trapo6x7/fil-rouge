@@ -1,7 +1,6 @@
 <?php
 
 include_once "../utils/autoloader.php";
-require_once "../utils/connectdb.php";
 require_once './partials/header.php';
 ?>
 

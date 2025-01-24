@@ -1,12 +1,11 @@
 <?php
 include_once "../utils/autoloader.php";
-require_once "../utils/connectdb.php";
 include_once '../utils/check-if-connected.php';
 require_once './partials/header.php';
 
 ?>
 
-    <main class="grow">
+    <main class="grow flex justify-center items-between">
         <section class="text-secondary-gray">
             <section class="flex flex-col p-28 justify-between items-center">
 
@@ -24,8 +23,8 @@ require_once './partials/header.php';
                 <?php
                 }
                 ?>
-                <form class="flex flex-col justify-center w-full items-center gap-8 p-10" action="../process/process_login.php" method="post">
-                    <div class="flex flex-col justify-center items-center gap-3 p-10">
+                <form class="flex flex-col justify-center w-full items-center gap-8 p-24" action="../process/process_login.php" method="post">
+                    <div class="flex flex-col justify-between items-center gap-3 p-28">
                         <input class="rounded-md text-center" type="email" id="email" name="email" placeholder="Email" required>
                         <input class="rounded-md text-center" type="password" id="password" name="password" placeholder="Mot de passe" required>
                         <input type="submit" class="bg-primary-purple px-4 py-2 rounded-md text-off-white text-sm" value="Se connecter">
