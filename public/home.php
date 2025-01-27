@@ -37,7 +37,7 @@ foreach ($randomKeys2 as $key) {
         <?php
 foreach ($randomProducts as $randomProduct):
         ?>
-        <article class="bg-off-white rounded-md flex flex-col p-5 w-1/4 gap-3">
+        <article class="bg-off-white rounded-md flex flex-col p-5 w-1/4 gap-3 h-auto">
             <div class="flex justify-end">
                 <img src="./asset/coeuricon.png" alt="" id="like" class="w-4">
             </div>
@@ -96,12 +96,12 @@ endforeach;
                 <img src="<?= $randomArticle->getImageUrl()?>" alt="" id="cover" class="h-auto rounded-md">
             </div>
 
-            <div class="flex flex-col">
+            <div class="flex flex-col flex-grow">
                 <h3 class="text-md font-bold"><?= $randomArticle->getName()?></h3>
                 <p class="text-sm"><?= $randomArticle->getBody()?></p>
             </div>
 
-            <div class="flex justify-end text-sm">
+            <div class="flex justify-end items-end text-sm">
                 <a href="" alt="" class="text-off-white bg-secondary-gray p-2 w-1/2 text-center rounded-md">Lire l'article</a>
             </div>
         </article>

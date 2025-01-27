@@ -16,7 +16,7 @@ $user = $userRepo->findById($_GET['id']);
                 <section class="flex flex-col gap-8 w-1/6">
 
                     <div class="flex flex-col gap-1 items-center justify-start">
-                        <img src="../asset/photos/chill_guy1731936768520.png" alt="" class="w-1/3">
+                        <img src="./asset/photos/chill_guy1731936768520.png" alt="" class="w-1/3">
                         <h2 class="font-bold text-md"><?= strtoupper($user->getPseudo()) ?></h2>
                         <p class="font-normal text-sm"><?= $user->getMail() ?></p>
                     </div>
