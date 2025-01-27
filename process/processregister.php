@@ -53,7 +53,7 @@ try {
     }
 
     // Créer une instance de User
-    $user = new User(0, $data['firstname'], $data['lastname'], $data['pseudo'], $data['mail'], $data['password'], $role->getId(), "", "");
+    $user = new User(0, $data['firstname'], $data['lastname'], $data['pseudo'], $data['mail'], $data['password'], $role, "", "");
 
     // Insérer l'utilisateur en base de données
     $insertedUser = $userRepository->insert($user);
@@ -68,12 +68,12 @@ try {
     $_SESSION["user"] = $insertedUser;
 
     // Rediriger en fonction du rôle
-    if ($_SESSION['user']->getIdRole() == 2) {
-        header("location: ../public/sellerregisterpage.php?id=" . $_SESSION['user']->getId());
+    if ($_SESSION['user']->getRole()->getId() == 2) {
+        header("location: ../public/sellerregisterpage.php");
         return;
     }
 
-    header("location: ../public/profilpage.php?id=" . $_SESSION['user']->getId());
+    header("location: ../public/profilpage.php");
 } catch (\Exception $e) {
     echo "Erreur : " . $e->getMessage();
 }

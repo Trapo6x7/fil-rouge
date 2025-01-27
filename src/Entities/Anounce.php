@@ -16,7 +16,7 @@ final class Anounce {
         $this->description = $description;
         $this->price = $price;
         $this->idCondition = $idCondition;
-        $this->$imageUrl = $imageUrl;
+        $this->imageUrl = $imageUrl;
     }
 
 

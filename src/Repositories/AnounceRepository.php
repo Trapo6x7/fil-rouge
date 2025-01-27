@@ -127,4 +127,54 @@ final class AnounceRepository extends AbstractRepository
             return false;
         }
     }
+    public function findAnouncesByOrderId(int $orderId): ?array
+    {
+        $sql = "SELECT a.* 
+            FROM `anounce` a
+            INNER JOIN `order_anounce` oa ON a.id = oa.id_anounce
+            WHERE oa.id_order = :id_order";
+
+        try {
+            $stmt = $this->pdo->prepare($sql);
+            $stmt->execute([':id_order' => $orderId]);
+            $anouncesData = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        } catch (PDOException $e) {
+            echo "Erreur lors de la requête : " . $e->getMessage();
+            return null;
+        }
+
+        return $anouncesData ? array_map(fn($data) => AnounceMapper::mapToObject($data), $anouncesData) : [];
+    }
+        /**
+     * Récupère les annonces par ID d'utilisateur
+     *
+     * @param int $userId L'ID de l'utilisateur
+     * @return Anounce[] Tableau d'objets Anounce
+     */
+    public function findAnounceByUserId(int $userId): array {
+        // Requête SQL pour récupérer les annonces d'un utilisateur donné
+        $sql = 'SELECT * FROM announce WHERE user_id = :userId';
+
+        // Préparer et exécuter la requête
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->execute(['userId' => $userId]);
+
+        // Récupérer les résultats
+        $data = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        // Mapper les résultats en objets Anounce
+        $announces = [];
+        foreach ($data as $row) {
+            $announces[] = new Anounce(
+                $row['id'],
+                $row['id_product'],
+                $row['description'],
+                $row['price'],
+                $row['id_condition'],
+                $row['image_url']
+            );
+        }
+
+        return $announces;
+    }
 }

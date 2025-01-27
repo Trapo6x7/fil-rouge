@@ -17,14 +17,21 @@ $validator->addStrategy('companyadress', new RequiredValidator());
 $validator->addStrategy('companyadress', new PasswordValidator(30));
 
 
-$userId = (int)$_GET['id'];  // Récupère l'ID de l'utilisateur passé en GET
+session_start();
+
+/**
+ * @var User $user
+ */
+$user = $_SESSION['user'];
+
+ // Récupère l'ID de l'utilisateur passé en GET
 $userRepo = new UserRepository;
-$user = $userRepo->findById($userId);
+
 $user->setCompanyName($_POST['companyname']);
 $user->setCompanyAdress($_POST['companyadress']);
 
 $updatedUser = $userRepo->updateSeller($user);
-var_dump($_GET, $_POST, $user, $updatedUser);
+// var_dump($_GET, $_POST, $user, $updatedUser);
 
 
 try {
@@ -32,11 +39,8 @@ try {
     // Démarrer une session et mettre à jour les informations de session
     session_start();
     $_SESSION['user'] = $updatedUser;
-    $_SESSION['company_name'] = $updatedUser->getCompanyName();
-    $_SESSION['company_adress'] = $updatedUser->getCompanyAdress();
-
     // Redirection après mise à jour réussie
-    header("Location: ../public/profilpage.php?id=" . $_SESSION['user']->getId());
+    header("Location: ../public/profilpage.php");
     exit;
 } catch (\PDOException $error) {
     // Gestion des erreurs

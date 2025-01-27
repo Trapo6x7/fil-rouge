@@ -2,9 +2,15 @@
 
 final class ProductRepository extends AbstractRepository
 {
+
+    private AuthorRepository $authorRepo;
+    private GenreRepository $genreRepo;
+
     public function __construct()
     {
         parent::__construct();
+        $this->authorRepo = new AuthorRepository();
+        $this->genreRepo = new GenreRepository();
     }
 
     /**
@@ -15,15 +21,15 @@ final class ProductRepository extends AbstractRepository
      */
     public function insert(Product $product): ?Product
     {
-        $sql = "INSERT INTO `product` (id, name, idAuthor, idGenre, ISBN, image_url) VALUES (:id, :name, :idAuthor, :idGenre, :ISBN, :image_url)";
+        $sql = "INSERT INTO `product` (id, name, id_author, id_genre, ISBN, image_url) VALUES (:id, :name, :idAuthor, :idGenre, :ISBN, :image_url)";
 
         try {
             $stmt = $this->pdo->prepare($sql);
             $stmt->execute([
                 ':id' => $product->getId(),
                 ':name' => $product->getName(),
-                ':idAuthor' => $product->getIdAuthor(),
-                ':idGenre' => $product->getIdGenre(),
+                ':idAuthor' => $product->getAuthor()->getId(),
+                ':idGenre' => $product->getGenre()->getId(),
                 ':ISBN' => $product->getISBN(),
                 ':image_url' => $product->getImageUrl(), // Ajout de l'URL de l'image
             ]);
@@ -54,7 +60,15 @@ final class ProductRepository extends AbstractRepository
             return null;
         }
 
-        return $productData ? ProductMapper::mapToObject($productData) : null;
+        if(!$productData){
+            return null;
+        }
+
+        $productData['author'] = $this->authorRepo->findById($productData['id_author']);
+        $productData['genre'] = $this->genreRepo->findById($productData['id_genre']);
+
+
+        return ProductMapper::mapToObject($productData);
     }
 
     /**
@@ -62,7 +76,7 @@ final class ProductRepository extends AbstractRepository
      *
      * @return Product[]
      */
-    public function findAll(): array
+    public function findAll(): ?array
     {
         $sql = "SELECT * FROM `product`";
 
@@ -74,7 +88,13 @@ final class ProductRepository extends AbstractRepository
             return [];
         }
 
-        return array_map(fn($data) => ProductMapper::mapToObject($data), $productsData);
+        $products = [];
+
+        foreach($productsData as $productData){
+            $products[] = ProductMapper::mapToObject($productData);
+        }
+
+        return $products;
     }
 
     /**
@@ -85,15 +105,15 @@ final class ProductRepository extends AbstractRepository
      */
     public function update(Product $product): bool
     {
-        $sql = "UPDATE `product` SET name = :name, idAuthor = :idAuthor, idGenre = :idGenre, ISBN = :ISBN, image_url = :image_url WHERE id = :id";
+        $sql = "UPDATE `product` SET name = :name, id_author = :idAuthor, id_genre = :idGenre, ISBN = :ISBN, image_url = :image_url WHERE id = :id";
 
         try {
             $stmt = $this->pdo->prepare($sql);
             $stmt->execute([
                 ':id' => $product->getId(),
                 ':name' => $product->getName(),
-                ':idAuthor' => $product->getIdAuthor(),
-                ':idGenre' => $product->getIdGenre(),
+                ':idAuthor' => $product->getAuthor()->getId(),
+                ':idGenre' => $product->getGenre()->getId(),
                 ':ISBN' => $product->getISBN(),
                 ':image_url' => $product->getImageUrl(), // Mise à jour de l'URL de l'image
             ]);

@@ -5,18 +5,18 @@ final class Product
 
     private int $id;
     private string $name;
-    private int $idAuthor;
-    private int $idGenre;
+    private Author $author;
+    private Genre $genre;
     private int $ISBN;
     private string $imageUrl;
 
 
-    public function __construct(int $id, string $name, int $idAuthor, int $idGenre, int $ISBN, string $imageUrl)
+    public function __construct(int $id, string $name, Author $author, Genre $genre, int $ISBN, string $imageUrl)
     {
         $this->id = $id;
         $this->name = $name;
-        $this->idAuthor = $idAuthor;
-        $this->idGenre = $idGenre;
+        $this->author = $author;
+        $this->genre = $genre;
         $this->ISBN = $ISBN;
         $this->imageUrl = $imageUrl;
     }
@@ -39,26 +39,26 @@ final class Product
         return $this;
     }
 
-    public function getIdAuthor(): int
+    public function getAuthor(): Author
     {
-        return $this->idAuthor;
+        return $this->author;
     }
 
-    public function setIdAuthor($idAuthor): self
+    public function setAuthor(Author $author): self
     {
-        $this->idAuthor = $idAuthor;
+        $this->author = $author;
 
         return $this;
     }
 
-    public function getIdGenre(): int
+    public function getGenre(): Genre
     {
-        return $this->idGenre;
+        return $this->genre;
     }
 
-    public function setIdGenre($idGenre): self
+    public function setGenre(Genre $genre): self
     {
-        $this->idGenre = $idGenre;
+        $this->genre = $genre;
 
         return $this;
     }

@@ -9,11 +9,11 @@ final class User
     private string $pseudo;
     private string $mail;
     private string $password;
-    private int $idRole;
+    private Role $role;
     private ?string $companyAdress;
     private ?string $companyName;
 
-    public function __construct(int $id, string $firstname, string $pseudo, string $lastname, string $mail, string $password, int $idRole, ?string $companyAdress, ?string $companyName)
+    public function __construct(int $id, string $firstname, string $pseudo, string $lastname, string $mail, string $password, Role $role, ?string $companyAdress, ?string $companyName)
     {
         $this->id = $id;
         $this->firstname = $firstname;
@@ -21,7 +21,7 @@ final class User
         $this->pseudo = $pseudo;
         $this->mail = $mail;
         $this->password = $password;
-        $this->idRole = $idRole;
+        $this->role = $role;
         $this->companyAdress = $companyAdress;
         $this->companyName = $companyName;
     }
@@ -91,14 +91,14 @@ final class User
         return $this;
     }
 
-    public function getIdRole(): int
+    public function getRole(): Role
     {
-        return $this->idRole;
+        return $this->role;
     }
 
-    public function setIdRole($idRole): self
+    public function setIdRole(Role $role): self
     {
-        $this->idRole = $idRole;
+        $this->role = $role;
 
         return $this;
     }

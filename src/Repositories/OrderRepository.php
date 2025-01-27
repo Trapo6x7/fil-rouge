@@ -2,9 +2,16 @@
 
 final class OrderRepository extends AbstractRepository
 {
+    private UserRepository $userRepo;
+    private ProductRepository $productRepo;
+    private OrderStateRepository $orderStateRepo;
+
     public function __construct()
     {
         parent::__construct();
+        $this->productRepo = new ProductRepository();
+        $this->userRepo = new UserRepository();
+        $this->orderStateRepo = new OrderStateRepository();
     }
 
     /**
@@ -21,11 +28,11 @@ final class OrderRepository extends AbstractRepository
         try {
             $stmt = $this->pdo->prepare($sql);
             $stmt->execute([
-                ':buyer' => $order->getBuyer(),
-                ':seller' => $order->getSeller(),
-                ':id_product' => $order->getIdProduct(),
+                ':buyer' => $order->getBuyer()->getId(),
+                ':seller' => $order->getSeller()->getId(),
+                ':id_product' => $order->getProduct()->getId(),
                 ':purchase_at' => $order->getPurchaseAt()->format('Y-m-d H:i:s'),
-                ':id_order_state' => $order->getIdOrderState()
+                ':id_order_state' => $order->getOrderState()->getId()
             ]);
 
             return $this->findById((int)$this->pdo->lastInsertId());
@@ -54,15 +61,24 @@ final class OrderRepository extends AbstractRepository
             return null;
         }
 
-        return $orderData ? OrderMapper::mapToObject($orderData) : null;
+        if (!$orderData) {
+            return null;
+        }
+
+        $orderData['buyer'] = $this->userRepo->findById($orderData['buyer']);
+        $orderData['seller'] = $this->userRepo->findById($orderData['seller']);
+        $orderData['product'] = $this->productRepo->findById($orderData['id_product']);
+        $orderData['orderState'] = $this->orderStateRepo->findById($orderData['id_order_state']);
+
+        return OrderMapper::mapToObject($orderData);
     }
 
     /**
      * Récupère toutes les commandes.
      *
-     * @return Order[]
+     * @return Order[]|null
      */
-    public function findAll(): array
+    public function findAll(): ?array
     {
         $sql = "SELECT * FROM `order`";
 
@@ -71,10 +87,19 @@ final class OrderRepository extends AbstractRepository
             $ordersData = $stmt->fetchAll(PDO::FETCH_ASSOC);
         } catch (PDOException $e) {
             echo "Erreur lors de la requête : " . $e->getMessage();
-            return [];
+            return null;
         }
 
-        return array_map(fn($data) => OrderMapper::mapToObject($data), $ordersData);
+        $orders['buyer'] = $this->userRepo->findById($ordersData['buyer']);
+        $orders['seller'] = $this->userRepo->findById($ordersData['seller']);
+        $orders['product'] = $this->productRepo->findById($ordersData['id_product']);
+        $orders['orderState'] = $this->orderStateRepo->findById($ordersData['id_order_state']);
+        $orders = [];
+        foreach ($ordersData as $data) {
+            $orders[] = OrderMapper::mapToObject($data);
+        }
+
+        return $orders;
     }
 
     /**
@@ -96,9 +121,9 @@ final class OrderRepository extends AbstractRepository
                 ':id' => $order->getId(),
                 ':buyer' => $order->getBuyer(),
                 ':seller' => $order->getSeller(),
-                ':id_product' => $order->getIdProduct(),
+                ':id_product' => $order->getProduct()->getId(),
                 ':purchase_at' => $order->getPurchaseAt()->format('Y-m-d H:i:s'),
-                ':id_order_state' => $order->getIdOrderState()
+                ':id_order_state' => $order->getOrderState()->getId()
             ]);
 
             return true;
@@ -127,5 +152,102 @@ final class OrderRepository extends AbstractRepository
             echo "Erreur lors de la suppression : " . $e->getMessage();
             return false;
         }
+    }
+
+    /**
+     * Trouve les commandes par l'ID de l'acheteur.
+     *
+     * @param int $buyerId
+     * @return Order[]|null
+     */
+    public function findAllByUserId(int $buyerId): ?array
+    {
+        $sql = "SELECT * FROM `order` WHERE buyer = :buyer";
+
+        try {
+            $stmt = $this->pdo->prepare($sql);
+            $stmt->execute([':buyer' => $buyerId]);
+            $orderDatas = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        } catch (PDOException $e) {
+            echo "Erreur lors de la requête : " . $e->getMessage();
+            return null;
+        }
+
+
+        $orders = [];
+
+        foreach ($orderDatas as $orderData) {
+            $orderData['buyer'] = $this->userRepo->findById($orderData['buyer']);
+            $orderData['seller'] = $this->userRepo->findById($orderData['seller']);
+            $orderData['orderState'] = $this->orderStateRepo->findById($orderData['id_order_state']);
+            $orderData['product'] = $this->productRepo->findById($orderData['id_product']);
+
+            unset($orderData['id_product']);
+            unset($orderData['id_order_state']);
+
+
+
+            $orders[] = OrderMapper::mapToObject($orderData);
+
+        }
+
+        return $orders;
+    }
+
+    /**
+     * Trouve les commandes par l'ID du vendeur.
+     *
+     * @param int $sellerId
+     * @return Order[]|null
+     */
+    public function findBySellerId(int $sellerId): ?array
+    {
+        $sql = "SELECT * FROM `order` WHERE seller = :seller";
+
+        try {
+            $stmt = $this->pdo->prepare($sql);
+            $stmt->execute([':seller' => $sellerId]);
+            $ordersData = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        } catch (PDOException $e) {
+            echo "Erreur lors de la requête : " . $e->getMessage();
+            return null;
+        }
+
+        $orders = [];
+        foreach ($ordersData as $data) {
+            $orders[] = OrderMapper::mapToObject($data);
+        }
+
+        return $orders;
+    }
+
+    /**
+     * Trouve les commandes par l'ID de l'annonce.
+     *
+     * @param int $anounceId
+     * @return Order[]|null
+     */
+    public function findOrdersByAnounceId(int $anounceId): ?array
+    {
+        $sql = "SELECT o.* 
+            FROM `order` o
+            INNER JOIN `order_anounce` oa ON o.id = oa.id_order
+            WHERE oa.id_anounce = :id_anounce";
+
+        try {
+            $stmt = $this->pdo->prepare($sql);
+            $stmt->execute([':id_anounce' => $anounceId]);
+            $ordersData = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        } catch (PDOException $e) {
+            echo "Erreur lors de la requête : " . $e->getMessage();
+            return null;
+        }
+
+        $orders = [];
+        foreach ($ordersData as $data) {
+            $orders[] = OrderMapper::mapToObject($data);
+        }
+
+        return $orders;
     }
 }
