@@ -82,8 +82,8 @@ $anounces = $anounceRepo->findAnouncesByOrderId($order->getId());
 
                     <div class="flex flex-col">
                         <h3 id="auteur" class="text-sm font-extralight"><?= $order->getProduct()->getAuthor()->getAuthor()?></h3>
-                        <h2 id="titre" class="text-lg font-extrabold text-secondary-gray">Titre</h2>
-                        <p id="price" class="text-md font-bold text-primary-purple">Prix</p>
+                        <h2 id="titre" class="text-lg font-extrabold text-secondary-gray"><?= $order->getProduct()->getName()?></h2>
+                        <p id="price" class="text-md font-bold text-primary-purple"><?= $order->getProduct()->getId()?></p>
                     </div>
 
                     <div class="flex justify-center text-sm">
