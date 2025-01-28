@@ -47,7 +47,7 @@ foreach ($randomProducts as $randomProduct):
             </div>
 
             <div class="flex flex-col">
-                <h3 id="auteur" class="text-sm font-extralight"><?= $authorRepo->findById($randomProduct->getIdAuthor())->getAuthor() ?></h3>
+                <h3 id="auteur" class="text-sm font-extralight"><?= $randomProduct->getAuthor()->getAuthor() ?></h3>
                 <h2 id="titre" class="text-lg font-extrabold text-secondary-gray"><?= $randomProduct->getName() ?></h2>
                 <!-- <p id="price" class="text-md font-bold text-primary-purple">Prix</p> -->
             </div>

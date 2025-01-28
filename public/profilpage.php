@@ -14,9 +14,6 @@ $user = $_SESSION['user'];
 $orderRepo = new OrderRepository;
 $orders = $orderRepo->findAllByUserId($user->getId());
 $anounceRepo = new AnounceRepository;
-foreach ($orders as $order){
-$anounces = $anounceRepo->findAnouncesByOrderId($order->getId());
-}
 ?>
 
 <main>
@@ -67,23 +64,31 @@ $anounces = $anounceRepo->findAnouncesByOrderId($order->getId());
                 <div class="flex justify-center">
                     <h1 class="text-lg">Bonjour <span class="font-bold"><?= strtoupper($user->getPseudo()) ?></span>, prêt a lire aujourd'hui?</h1>
                 </div>
-
+<div class="flex">
                 <?php
                 foreach ($orders as $order) :
+                    $anounces = $anounceRepo->findAnouncesByOrderId($order->getId());
+                    foreach ($anounces as $anounce):
+                    $imageUrl = $anounce->getImageUrl(); 
+                    $price = $anounce->getPrice();
+              
                 ?>
+                
                 <article class="bg-off-white rounded-md flex flex-col p-5 w-1/4 gap-3">
                     <div class="flex justify-end">
                         <img src="../asset/coeuricon.png" alt="" id="like" class="w-4">
                     </div>
 
+              
+
                     <div class="flex justify-center">
-                        <img src="" alt="" id="cover" class="h-72 rounded-md">
+                        <img src="<?= $imageUrl ?>" alt="" id="cover" class="h-72 rounded-md">
                     </div>
 
                     <div class="flex flex-col">
                         <h3 id="auteur" class="text-sm font-extralight"><?= $order->getProduct()->getAuthor()->getAuthor()?></h3>
                         <h2 id="titre" class="text-lg font-extrabold text-secondary-gray"><?= $order->getProduct()->getName()?></h2>
-                        <p id="price" class="text-md font-bold text-primary-purple"><?= $order->getProduct()->getId()?></p>
+                        <p id="price" class="text-md font-bold text-primary-purple"> <?= $price ?> €</p>
                     </div>
 
                     <div class="flex justify-center text-sm">
@@ -92,10 +97,11 @@ $anounces = $anounceRepo->findAnouncesByOrderId($order->getId());
                 </article>
 
                 <?php
+                      endforeach;
                 endforeach;
                 ?>
             </section>
-
+            </div>
         </section>
     </main>
 </main>

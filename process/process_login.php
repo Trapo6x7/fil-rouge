@@ -35,7 +35,7 @@ try {
 
         $_SESSION["user"] = $user;
         
-        header("Location: ../public/profilpage.php?id=" . $_SESSION["user"]->getId());
+        header("Location: ../public/profilpage.php");
         exit();
     } else {
         var_dump($_SESSION);
