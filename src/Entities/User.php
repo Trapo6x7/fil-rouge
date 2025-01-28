@@ -96,7 +96,7 @@ final class User
         return $this->role;
     }
 
-    public function setIdRole(Role $role): self
+    public function setRole(Role $role): self
     {
         $this->role = $role;
 

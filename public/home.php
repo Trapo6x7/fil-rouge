@@ -12,7 +12,6 @@ $randomKeys1 = array_rand($products, 4);
 $randomKeys2 = array_rand($articles, 3);
 // Initialiser un tableau pour les produits aléatoires
 $randomProducts = [];
-
 $randomArticles = [];
 // Récupérer les objets produits en utilisant les indices
 foreach ($randomKeys1 as $key) {
@@ -21,7 +20,6 @@ foreach ($randomKeys1 as $key) {
 foreach ($randomKeys2 as $key) {
     $randomArticles[] = $articles[$key];
 }
-
 ?>
 
 
@@ -35,29 +33,29 @@ foreach ($randomKeys2 as $key) {
 
     <section class="bg-primary-yellow p-10 flex gap-5 justify-between">
         <?php
-foreach ($randomProducts as $randomProduct):
+        foreach ($randomProducts as $randomProduct):
         ?>
-        <article class="bg-off-white rounded-md flex flex-col p-5 w-1/4 gap-3 h-auto justify-between">
-            <div class="flex justify-end">
-                <img src="./asset/coeuricon.png" alt="" id="like" class="w-4">
-            </div>
+            <article class="bg-off-white rounded-md flex flex-col p-5 w-1/4 gap-3 h-auto justify-between">
+                <div class="flex justify-end">
+                    <img src="./asset/coeuricon.png" alt="" id="like" class="w-4">
+                </div>
 
-            <div class="flex justify-center">
-               <img src="<?php $randomProduct->getImageUrl() ?>" alt="" id="cover" class="h-72 rounded-md">
-            </div>
+                <div class="flex justify-center">
+                    <img src="<?php $randomProduct->getImageUrl() ?>" alt="" id="cover" class="h-72 rounded-md">
+                </div>
 
-            <div class="flex flex-col">
-                <h3 id="auteur" class="text-sm font-extralight"><?= $randomProduct->getAuthor()->getAuthor() ?></h3>
-                <h2 id="titre" class="text-lg font-extrabold text-secondary-gray"><?= $randomProduct->getName() ?></h2>
-                <!-- <p id="price" class="text-md font-bold text-primary-purple">Prix</p> -->
-            </div>
+                <div class="flex flex-col">
+                    <h3 id="auteur" class="text-sm font-extralight"><?= $randomProduct->getAuthor()->getAuthor() ?></h3>
+                    <h2 id="titre" class="text-lg font-extrabold text-secondary-gray"><?= $randomProduct->getName() ?></h2>
+                    <!-- <p id="price" class="text-md font-bold text-primary-purple">Prix</p> -->
+                </div>
 
-            <div class="flex justify-center text-sm">
-                <a href="" alt="" class="text-off-white bg-secondary-gray p-2 rounded-md">Ajouter au panier</a>
-            </div>
-        </article>
+                <div class="flex justify-center text-sm">
+                    <a href="" alt="" class="text-off-white bg-secondary-gray p-2 rounded-md">Ajouter au panier</a>
+                </div>
+            </article>
         <?php
-endforeach;
+        endforeach;
         ?>
     </section>
 
@@ -88,25 +86,25 @@ endforeach;
     </section>
 
     <section class="bg-primary-yellow p-10 flex gap-5 justify-between">
-<?php foreach ($randomArticles as $randomArticle):
-?>
-        <article class="bg-off-white rounded-md flex flex-col justify-between p-5 w-1/3 gap-3 h-auto">
+        <?php foreach ($randomArticles as $randomArticle):
+        ?>
+            <article class="bg-off-white rounded-md flex flex-col justify-between p-5 w-1/3 gap-3 h-auto">
 
-            <div class="flex justify-center">
-                <img src="<?= $randomArticle->getImageUrl()?>" alt="" id="cover" class="h-auto rounded-md">
-            </div>
+                <div class="flex justify-center">
+                    <img src="<?= $randomArticle->getImageUrl() ?>" alt="" id="cover" class="h-auto rounded-md">
+                </div>
 
-            <div class="flex flex-col">
-                <h3 class="text-md font-bold"><?= $randomArticle->getName()?></h3>
-                <p class="text-sm"><?= $randomArticle->getBody()?></p>
-            </div>
+                <div class="flex flex-col">
+                    <h3 class="text-md font-bold"><?= $randomArticle->getName() ?></h3>
+                    <p class="text-sm"><?= $randomArticle->getBody() ?></p>
+                </div>
 
-            <div class="flex justify-end items-end text-sm">
-                <a href="" alt="" class="text-off-white bg-secondary-gray p-2 w-1/2 text-center rounded-md">Lire l'article</a>
-            </div>
-        </article>
-<?php endforeach;
-?>
+                <div class="flex justify-end items-end text-sm">
+                    <a href="" alt="" class="text-off-white bg-secondary-gray p-2 w-1/2 text-center rounded-md">Lire l'article</a>
+                </div>
+            </article>
+        <?php endforeach;
+        ?>
     </section>
 
     <section class="bg-primary-purple relative">
