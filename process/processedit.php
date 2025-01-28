@@ -18,17 +18,12 @@ $data = $validator->sanitize($_POST);
 // Ajouter les stratégies de validation
 $validator->addStrategy('id', new RequiredValidator());
 $validator->addStrategy('id', new IntegerValidator());
-$validator->addStrategy('firstname', new RequiredValidator());
-$validator->addStrategy('firstname', new StringValidator(30));
-$validator->addStrategy('lastname', new RequiredValidator());
-$validator->addStrategy('lastname', new StringValidator(30));
-$validator->addStrategy('pseudo', new RequiredValidator());
-$validator->addStrategy('pseudo', new StringValidator(30));
-$validator->addStrategy('mail', new RequiredValidator());
-$validator->addStrategy('mail', new StringValidator(50));
-$validator->addStrategy('password', new PasswordValidator(30)); // Le mot de passe peut être optionnel
-$validator->addStrategy('role', new RequiredValidator());
-$validator->addStrategy('role', new IntegerValidator());
+$validator->addStrategy('firstname', new StringValidator(30)); // Pas obligatoire
+$validator->addStrategy('lastname', new StringValidator(30)); // Pas obligatoire
+$validator->addStrategy('pseudo', new StringValidator(30)); // Pas obligatoire
+$validator->addStrategy('mail', new StringValidator(50)); // Pas obligatoire
+$validator->addStrategy('password', new PasswordValidator(30)); // Pas obligatoire
+$validator->addStrategy('role', new IntegerValidator()); // Pas obligatoire
 
 $isValid = $validator->validate($data);
 
@@ -37,23 +32,11 @@ if (!$isValid) {
     return;
 }
 
-// Hacher le mot de passe uniquement si un nouveau mot de passe est fourni
-if (!empty($data['password'])) {
-    $data['password'] = password_hash($data['password'], PASSWORD_BCRYPT);
-}
-
 // Instancier les repositories nécessaires
 $roleRepository = new RoleRepository();
 $userRepository = new UserRepository();
 
 try {
-    // Vérifier si le rôle existe
-    $role = $roleRepository->findById($data['role']);
-    if (!$role) {
-        header('location: ../public/profilpage.php?error=invalid_role');
-        return;
-    }
-
     // Vérifier si l'utilisateur existe
     $user = $userRepository->findById($data['id']);
     if (!$user) {
@@ -61,15 +44,31 @@ try {
         return;
     }
 
-    // Mettre à jour les informations de l'utilisateur
-    $user->setFirstname($data['firstname']);
-    $user->setLastname($data['lastname']);
-    $user->setPseudo($data['pseudo']);
-    $user->setMail($data['mail']);
-    $user->setRole($role);
+    // Vérifier si un rôle est fourni et qu'il existe
+    if (!empty($data['role'])) {
+        $role = $roleRepository->findById($data['role']);
+        if (!$role) {
+            header('location: ../public/profilpage.php?error=invalid_role');
+            return;
+        }
+        $user->setRole($role);
+    }
 
+    // Mettre à jour uniquement les champs fournis
+    if (!empty($data['firstname'])) {
+        $user->setFirstname($data['firstname']);
+    }
+    if (!empty($data['lastname'])) {
+        $user->setLastname($data['lastname']);
+    }
+    if (!empty($data['pseudo'])) {
+        $user->setPseudo($data['pseudo']);
+    }
+    if (!empty($data['mail'])) {
+        $user->setMail($data['mail']);
+    }
     if (!empty($data['password'])) {
-        $user->setPassword($data['password']);
+        $user->setPassword(password_hash($data['password'], PASSWORD_BCRYPT));
     }
 
     // Mettre à jour en base de données
